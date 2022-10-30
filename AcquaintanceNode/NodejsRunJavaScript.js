@@ -1,0 +1,1 @@
+console.log('在Node.js环境中执行JavaScript代码');
