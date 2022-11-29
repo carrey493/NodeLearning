@@ -260,7 +260,7 @@ if (err) {
 console.log('文件写入成功');
 ```
 
-4. fs文件系统模块使用
+### 4. fs文件系统模块使用
 
 使用fs文件系统模块，将素材目录下3.txt文件中的考试数据，整理到4.txt文件中。
 
@@ -278,3 +278,25 @@ console.log('文件写入成功');
 - 判断文件是否读取失败
 - 文件读取成功后，处理成绩数据
 - 将处理完成的成绩数据，调用fs.writeFile)方法，写入到新文件4.txt中
+
+### 5. fs模块-路径动态拼接问题
+
+在使用fs模块操作文件时，如果提供的操作路径是以`./`或`../`开头的`相对路径`时，很容易出现路径动态拼接错误的问题。
+
+原因:代码在运行的时候，`会以执行node命令时所处的目录`，动态拼接出被操作文件的完整路径。
+
+解决方案:在使用fs模块操作文件时，`直接提供完整的路径`，不要提供.』或../开头的相对路径，从而防止路径动态拼接的问题,
+
+```js
+/* 
+__dirname 表示当前文件所处的目录
+ */
+console.log({ __dirname });//{ __dirname: 'e:\\web-study\\NodeLearning\\AcquaintanceNode' } 
+fs.readFile(__dirname + '/files/2.txt', 'utf-8', function (err, dataStr) {
+    if (err) {
+        return console.log('读取文件失败！' + err.message);
+    }
+
+    console.log('读取文件成功！', dataStr);
+})
+```
